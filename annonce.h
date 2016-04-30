@@ -2,6 +2,9 @@
 #define ANNONCE_H
 
 #include <QDialog>
+#include <QString>
+#include <QStringList>
+#include <QMessageBox>
 
 namespace Ui {
 class Annonce;
@@ -17,10 +20,12 @@ public:
 
 private:
     Ui::Annonce *ui;
+    void loadTypes();
+    void loadNbPieces();
 
 private slots:
-    void addAnnonce();
-    void searchAnnonce();
+    void accept();
+    void openImageFile();
 };
 
 #endif // ANNONCE_H

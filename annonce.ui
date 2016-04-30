@@ -52,19 +52,23 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox"/>
+         <widget class="QComboBox" name="combo_type">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QRadioButton" name="radioButton_2">
+           <widget class="QRadioButton" name="rdb_vente">
             <property name="text">
              <string>Vente</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="radioButton">
+           <widget class="QRadioButton" name="rdb_location">
             <property name="text">
              <string>Location</string>
             </property>
@@ -80,7 +84,17 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox"/>
+         <widget class="QSpinBox" name="spb_surface">
+          <property name="cursor">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="singleStep">
+           <number>10</number>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_5">
@@ -90,7 +104,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox_2"/>
+         <widget class="QComboBox" name="combo_pieces">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_6">
@@ -100,21 +118,21 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="txt_addr1">
           <property name="placeholderText">
            <string>Ligne 1</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_2">
+         <widget class="QLineEdit" name="txt_addr2">
           <property name="placeholderText">
            <string>Ligne 2</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_3">
+         <widget class="QLineEdit" name="txt_addr3">
           <property name="placeholderText">
            <string>Ligne 3</string>
           </property>
@@ -128,7 +146,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_4">
+         <widget class="QLineEdit" name="txt_prix">
           <property name="placeholderText">
            <string>Saisissez un prix en euros</string>
           </property>
@@ -140,6 +158,9 @@
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -159,11 +180,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit">
-          <property name="placeholderText">
-           <string>Saissez une description du bien</string>
-          </property>
-         </widget>
+         <widget class="QTextEdit" name="txt_desc"/>
         </item>
         <item>
          <widget class="QLabel" name="label_8">
@@ -173,12 +190,21 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit_2"/>
+         <widget class="QLabel" name="lbl_img">
+          <property name="font">
+           <font>
+            <italic>true</italic>
+           </font>
+          </property>
+          <property name="text">
+           <string>Image représentant le bien</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="btn_addPohot">
           <property name="text">
-           <string>AJouter une photo depuis mon ordinateur</string>
+           <string>Ajouter une photo depuis mon ordinateur</string>
           </property>
          </widget>
         </item>
@@ -187,12 +213,12 @@
      </layout>
     </item>
     <item>
-     <widget class="QDialogButtonBox" name="buttonBox">
+     <widget class="QDialogButtonBox" name="dialogButtonBox">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
       <property name="standardButtons">
-       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
       </property>
      </widget>
     </item>
@@ -202,14 +228,14 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>dialogButtonBox</sender>
    <signal>accepted()</signal>
    <receiver>Annonce</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>249</x>
+     <y>479</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -218,14 +244,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>dialogButtonBox</sender>
    <signal>rejected()</signal>
    <receiver>Annonce</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>317</x>
+     <y>479</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -233,5 +259,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btn_addPohot</sender>
+   <signal>clicked()</signal>
+   <receiver>Annonce</receiver>
+   <slot>openImageFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>496</x>
+     <y>440</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>483</x>
+     <y>467</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>openImageFile()</slot>
+ </slots>
 </ui>

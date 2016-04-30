@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>813</width>
-    <height>618</height>
+    <width>1113</width>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>811</width>
-      <height>481</height>
+      <width>1111</width>
+      <height>371</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -100,7 +100,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>813</width>
+     <width>1113</width>
      <height>27</height>
     </rect>
    </property>
@@ -114,6 +114,7 @@
     <property name="title">
      <string>Aide</string>
     </property>
+    <addaction name="actionAide"/>
     <addaction name="actionA_propos"/>
    </widget>
    <widget class="QMenu" name="menuAnnonces">
@@ -150,6 +151,11 @@
     <string>Créer</string>
    </property>
   </action>
+  <action name="actionAide">
+   <property name="text">
+    <string>Aide</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
@@ -161,12 +167,12 @@
    <slot>addAnnonce()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>568</x>
-     <y>512</y>
+     <x>897</x>
+     <y>408</y>
     </hint>
     <hint type="destinationlabel">
      <x>549</x>
-     <y>560</y>
+     <y>433</y>
     </hint>
    </hints>
   </connection>
@@ -177,12 +183,76 @@
    <slot>searchAnnonce()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>678</x>
-     <y>506</y>
+     <x>1108</x>
+     <y>408</y>
     </hint>
     <hint type="destinationlabel">
      <x>690</x>
-     <y>559</y>
+     <y>433</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCr_er</sender>
+   <signal>triggered()</signal>
+   <receiver>IHMo</receiver>
+   <slot>addAnnonce()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>556</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionQuitter</sender>
+   <signal>triggered()</signal>
+   <receiver>IHMo</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>556</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionA_propos</sender>
+   <signal>triggered()</signal>
+   <receiver>IHMo</receiver>
+   <slot>showAPropos()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>556</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAide</sender>
+   <signal>triggered()</signal>
+   <receiver>IHMo</receiver>
+   <slot>showAide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>556</x>
+     <y>216</y>
     </hint>
    </hints>
   </connection>
@@ -190,5 +260,7 @@
  <slots>
   <slot>addAnnonce()</slot>
   <slot>searchAnnonce()</slot>
+  <slot>showAPropos()</slot>
+  <slot>showAide()</slot>
  </slots>
 </ui>

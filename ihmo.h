@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+
 namespace Ui {
 class IHMo;
 }
@@ -17,6 +18,12 @@ public:
 
 private:
     Ui::IHMo *ui;
+
+private slots:
+    void addAnnonce();
+    void searchAnnonce();
+    void showAPropos();
+    void showAide();
 };
 
 #endif // IHMO_H

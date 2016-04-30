@@ -14,10 +14,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         ihmo.cpp \
-    annonce.cpp
+    annonce.cpp \
+    recherche.cpp
 
 HEADERS  += ihmo.h \
-    annonce.h
+    annonce.h \
+    recherche.h
 
 FORMS    += ihmo.ui \
-    annonce.ui
+    annonce.ui \
+    recherche.ui
