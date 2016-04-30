@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::Annonce *ui;
+
+private slots:
+    void addAnnonce();
+    void searchAnnonce();
 };
 
 #endif // ANNONCE_H

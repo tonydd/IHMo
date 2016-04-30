@@ -12,3 +12,11 @@ IHMo::~IHMo()
 {
     delete ui;
 }
+
+void addAnnonce() {
+
+}
+
+void searchAnnonce() {
+
+}
