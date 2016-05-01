@@ -41,3 +41,7 @@ void IHMo::showAide() {
 
     QDesktopServices::openUrl(QUrl("file://" +  helpFile));
 }
+
+void IHMo::registerAnnonce(ModelAnnonce a) {
+    IHMo::annonces.append(a);
+}

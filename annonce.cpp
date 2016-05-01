@@ -1,5 +1,6 @@
 #include "annonce.h"
 #include "ui_annonce.h"
+#include "Models/modelannonce.h"
 #include <QDoubleValidator>
 #include <QFileDialog>
 #include <QImage>
@@ -16,6 +17,8 @@ Annonce::Annonce(QWidget *parent) :
 
     // -- Validateurs
     ui->txt_prix->setValidator(new QDoubleValidator);
+    ui->txt_surface->setValidator(new QDoubleValidator);
+    ui->txt_surface_terrain->setValidator(new QDoubleValidator);
 }
 
 // Récupérer les différents types de bien du XMl et initialiser la comboBox
@@ -36,52 +39,39 @@ void Annonce::loadNbPieces() {
 
 void Annonce::openImageFile() {
     QString fileName = QFileDialog::getOpenFileName(this, "Choisir le fichier image","/home");
-    qDebug(fileName.toLatin1());
+    imageFile = fileName;
 
     QImage image(fileName);
     this->ui->lbl_img->setPixmap(QPixmap::fromImage(image));
 }
 
 void Annonce::accept() {
+    // -- Récupération des données
+    double prix = ui->txt_prix->text().toDouble();
+    double surface_habitable = ui->txt_surface->text().toDouble();
+    double surface_terrain = ui->txt_surface_terrain->text().toDouble();
 
 
+    QString type_bien = ui->combo_type->currentText();
+    int nb_pieces = ui->combo_pieces->currentText().toInt();
 
-}
+    QString addr1 = ui->txt_addr1->text();
+    QString addr2 = ui->txt_addr2->text();
+    QString addr3 = ui->txt_addr3->text();
 
-char* Annonce::readFileBytes(const char *name)
-{
-    std::ifstream fl(name);
-    fl.seekg( 0, std::ios::end );
-    size_t len = fl.tellg();
-    char *ret = new char[len];
-    fl.seekg(0, std::ios::beg);
-    fl.read(ret, len);
-    fl.close();
-    return ret;
-}
+    QString desc = ui->txt_desc->toPlainText();
 
-//Constructeur
-Annonce::Annonce(TYPE_BIEN peTypeBien,
-                 TYPE_ANNONCE peTypeAnnonce,
-                 double pdblSurfaceHabitable,
-                 double pdblSuperficieTerrain,
-                 int piNombrePiece,
-                 std::string pstrAdresse1,
-                 std::string pstrAdresse2,
-                 std::string pstrDescription,
-                 double pdblPrix,
-                 char* ptbPhotoContractuelle
-                 ){
-    mTypeBien = peTypeBien;
-    mTypeAnnonce = peTypeAnnonce;
-    mSurfaceHabitable = pdblSurfaceHabitable;
-    mSuperficieTerrain = pdblSuperficieTerrain;
-    mNombrePiece = piNombrePiece;
-    mAdresse1 = pstrAdresse1;
-    mAdresse2 = pstrAdresse2;
-    mDescription = pstrDescription;
-    mPrix = pdblPrix;
-    mPhotoContractuelle = ptbPhotoContractuelle;
+    QString type_annonce;
+
+    if (ui->rdb_location->isChecked()) {
+        type_annonce = ui->rdb_location->text();
+    }
+    else if (ui->rdb_vente->isChecked()) {
+        type_annonce = ui->rdb_vente->text();
+    }
+
+    ModelAnnonce a = ModelAnnonce(type_bien, type_annonce, surface_habitable, surface_terrain, nb_pieces, addr1, addr2, addr3, desc, prix, imageFile);
+    a.toString();
 }
 
 Annonce::~Annonce()
