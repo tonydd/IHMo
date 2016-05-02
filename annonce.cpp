@@ -12,10 +12,6 @@ Annonce::Annonce(QWidget *parent) :
     ui(new Ui::Annonce)
 {
     ui->setupUi(this);
-
-    // -- Background
-    this->setStyleSheet("QDialog {background-image: url('../Ressources/background.png')}");
-
     loadTypes();
     loadNbPieces();
 

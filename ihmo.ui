@@ -13,7 +13,23 @@
   <property name="windowTitle">
    <string>IHMo</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {background-image: url('../Ressources/background.jpg')}</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: #0275d8;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+	color: white;
+    font: bold 14px;
+    min-width: 10em;
+    padding: 6px;
+}</string>
+   </property>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
@@ -51,6 +67,9 @@
      </item>
      <item>
       <widget class="QTableWidget" name="tw_annonces">
+       <property name="styleSheet">
+        <string notr="true">#tw_annonces {opacity: 0.7;}</string>
+       </property>
        <property name="sizeAdjustPolicy">
         <enum>QAbstractScrollArea::AdjustIgnored</enum>
        </property>
@@ -88,6 +107,12 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_2">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
           <string>Ajouter une annonce</string>
          </property>
@@ -95,6 +120,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>Chercher une annonce</string>
          </property>
@@ -177,8 +205,8 @@
    <slot>addAnnonce()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1007</x>
-     <y>558</y>
+     <x>886</x>
+     <y>550</y>
     </hint>
     <hint type="destinationlabel">
      <x>549</x>

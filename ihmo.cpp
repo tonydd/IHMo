@@ -24,9 +24,6 @@ IHMo::IHMo(QWidget *parent) :
     ui->setupUi(this);
     IHMo::instance = this;
 
-    // -- Background
-    this->setStyleSheet("QMainWindow {background-image: url('../Ressources/background.png')}");
-
     // -- Préparation du table widget
     ui->tw_annonces->setStyleSheet("QTableView {selection-background-color: silver;}");
     ui->tw_annonces->setEditTriggers(QAbstractItemView::NoEditTriggers);

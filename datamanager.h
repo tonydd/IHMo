@@ -8,6 +8,7 @@ class Datamanager
 {
 public:
     Datamanager();
+    static Datamanager *getInstance();
 
     QList<ModelAnnonce> *annonces;
     QList<ModelAnnonce> *getAnnonces();
@@ -16,13 +17,12 @@ public:
     void registerAnnonce(ModelAnnonce a);
     void updateAnnonce(ModelAnnonce a, int index);
 
-    static Datamanager *getInstance();
+    void saveToXML();
+    void loadFromXML();
 
 private:
     static Datamanager *instance;
 
-    void saveToXML();
-    void loadFromXML();
 
 };
 
