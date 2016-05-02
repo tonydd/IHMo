@@ -25,6 +25,8 @@ Annonce::Annonce(QWidget *parent) :
     ui->txt_surface_terrain->setValidator(new QDoubleValidator);
 
     edition = false; // De base on est pas en mode edition
+    editing_index = -1;
+
 }
 
 // Récupérer les différents types de bien du XMl et initialiser la comboBox
@@ -79,14 +81,13 @@ void Annonce::accept() {
     ModelAnnonce a = ModelAnnonce(type_bien, type_annonce, surface_habitable, surface_terrain, nb_pieces, addr1, addr2, addr3, desc, prix, imageFile);
 
     if (edition) {
-        IHMo::getInstance()->getManager()->updateAnnonce(a, editing_index);
+        Datamanager::getInstance()->updateAnnonce(a, editing_index);
     }
     else {
-        IHMo::getInstance()->getManager()->registerAnnonce(a);
+        Datamanager::getInstance()->registerAnnonce(a);
     }
 
-    IHMo::getInstance()->refreshTablewidget();
-
+    w->refreshTablewidget();
     this->close();
 }
 
@@ -118,6 +119,10 @@ void Annonce::setValues(int index, QString typeBien, QString typeAnnonce, double
     edition = true; // On est en mode edition
     editing_index = index;
 
+}
+
+void Annonce::setW(IHMo *w) {
+    this->w = w;
 }
 
 Annonce::~Annonce()

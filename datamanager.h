@@ -16,7 +16,11 @@ public:
     void registerAnnonce(ModelAnnonce a);
     void updateAnnonce(ModelAnnonce a, int index);
 
+    static Datamanager *getInstance();
+
 private:
+    static Datamanager *instance;
+
     void saveToXML();
     void loadFromXML();
 

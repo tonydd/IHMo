@@ -27,10 +27,6 @@ IHMo::IHMo(QWidget *parent) :
     // -- Background
     this->setStyleSheet("QMainWindow {background-image: url('../Ressources/background.png')}");
 
-    // -- C'est ici qu'on init le Datamanager
-    Datamanager *d = new Datamanager;
-    this->manager = d;
-
     // -- Préparation du table widget
     ui->tw_annonces->setStyleSheet("QTableView {selection-background-color: silver;}");
     ui->tw_annonces->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -51,7 +47,7 @@ IHMo::~IHMo()
 // ********************************************
 
 void IHMo::refreshTablewidget() {
-    QList<ModelAnnonce> *annonces = IHMo::getInstance()->getManager()->getAnnonces();
+    QList<ModelAnnonce> *annonces = Datamanager::getInstance()->getAnnonces();
     QStringList headers;
     headers << "Type de bien" << "Type d'annonce" << "Surface habitable" << "Superficie terrain" << "Nb pieces" << "Description" <<"Addresse" << "Prix" << "Photo";
 
@@ -99,16 +95,13 @@ void IHMo::refreshTablewidget() {
     tw_annonces->resizeRowsToContents();
 }
 
-Datamanager *IHMo::getManager() {
-    return this->manager;
-}
-
 // ********************************************
 // Slots
 // ********************************************
 
 void IHMo::addAnnonce() {
-    Annonce *annonce = new Annonce;
+    Annonce *annonce = new Annonce();
+    annonce->setW(this);
     annonce->show();
 }
 
@@ -127,7 +120,7 @@ void IHMo::showAide() {
 void IHMo::showAnnonce(QModelIndex index) {
     int row = index.row();
 
-    ModelAnnonce a = this->getManager()->getAnnonce(row);
+    ModelAnnonce a = Datamanager::getInstance()->getAnnonce(row);
 
 
     // -- Création, remplissage, affichage du form d'édition
@@ -137,15 +130,7 @@ void IHMo::showAnnonce(QModelIndex index) {
                 a.mSuperficieTerrain, a.mNombrePiece, a.mDescription,
                 a.mAdresse1, a.mAdresse2, a.mAdresse3,
                 a.mPrix, a.mPhotoContractuelle);
-
+    disp->setW(this);
     disp->show();
 }
 
-
-// ********************************************
-// Méthodes de classe
-// ********************************************
-
-IHMo *IHMo::getInstance() {
-return IHMo::instance;
-}

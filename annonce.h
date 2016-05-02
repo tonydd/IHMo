@@ -1,6 +1,7 @@
 #ifndef ANNONCE_H
 #define ANNONCE_H
 
+#include "ihmo.h"
 #include <QDialog>
 #include <QString>
 #include <QStringList>
@@ -20,6 +21,7 @@ class Annonce : public QDialog
 
 public:
     explicit Annonce(QWidget *parent = 0);
+    void setW(IHMo *w);
     void setValues(int index,
             QString typeBien, QString typeAnnonce, double surfaceHabitable,
             double superficieTerrain, int nbPieces, QString description,
@@ -30,7 +32,8 @@ private:
     QString imageFile;
     Ui::Annonce *ui;
     bool edition;
-    int editing_index = -1;
+    int editing_index;
+    IHMo *w;
 
     void loadTypes();
     void loadNbPieces();

@@ -1,5 +1,7 @@
 #include "datamanager.h"
 
+Datamanager *Datamanager::instance = new Datamanager;
+
 Datamanager::Datamanager()
 {
     this->annonces = new QList<ModelAnnonce>;
@@ -31,4 +33,8 @@ void Datamanager::saveToXML() {
 
 void Datamanager::loadFromXML() {
 
+}
+
+Datamanager *Datamanager::getInstance() {
+    return instance;
 }
