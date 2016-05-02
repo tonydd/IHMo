@@ -9,8 +9,8 @@ class Datamanager
 public:
     Datamanager();
 
-    QList<ModelAnnonce> annonces;
-    QList<ModelAnnonce> getAnnonces();
+    QList<ModelAnnonce> *annonces;
+    QList<ModelAnnonce> *getAnnonces();
     ModelAnnonce getAnnonce(int index);
     void registerAnnonce(ModelAnnonce a);
 

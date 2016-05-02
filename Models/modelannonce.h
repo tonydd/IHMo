@@ -13,6 +13,8 @@ class ModelAnnonce
 {
 public:
 
+    // -- Méthodes
+
     ModelAnnonce(QString peTypeBien,
              QString peTypeAnnonce,
              double pdblSurfaceHabitable,
@@ -31,8 +33,7 @@ public:
     void toString();
     static void qPrint(QString s);
 
-    ~ModelAnnonce();
-private:
+    // -- Attributs
     QString mTypeBien;
     QString mTypeAnnonce;
     double mSurfaceHabitable;
@@ -47,6 +48,10 @@ private:
 
     QString mPhotoContractuelle;
     QStringList mGallerie;
+
+    ~ModelAnnonce();
+private:
+
 };
 
 #endif // MODELANNONCE_H

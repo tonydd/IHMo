@@ -1,5 +1,6 @@
 #include "annonce.h"
 #include "ui_annonce.h"
+#include "ihmo.h"
 #include "Models/modelannonce.h"
 #include <QDoubleValidator>
 #include <QFileDialog>
@@ -71,7 +72,10 @@ void Annonce::accept() {
     }
 
     ModelAnnonce a = ModelAnnonce(type_bien, type_annonce, surface_habitable, surface_terrain, nb_pieces, addr1, addr2, addr3, desc, prix, imageFile);
-    a.toString();
+    IHMo::getInstance()->getManager()->registerAnnonce(a);
+    IHMo::getInstance()->refreshTablewidget();
+
+    this->close();
 }
 
 Annonce::~Annonce()

@@ -22,14 +22,17 @@ public:
     static IHMo* instance;
     static IHMo* getInstance();
 
+    Datamanager *getManager();
+    void refreshTablewidget();
+
 private:
     Ui::IHMo *ui;
     Datamanager *manager;
-    Datamanager *getManager();
 
 private slots:
     void addAnnonce();
     void searchAnnonce();
+    void showAnnonce();
     void showAPropos();
     void showAide();
 };
