@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QDialog {background-image: url('../Ressources/background.jpg')}</string>
+   <string notr="true">QDialog {background-image: url('../Ressources/background-dialog.jpg')}</string>
   </property>
   <widget class="QWidget" name="container" native="true">
    <property name="geometry">
