@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QList>
+#include <QModelIndex>
 #include "Models/modelannonce.h"
 #include "datamanager.h"
 
@@ -32,7 +33,7 @@ private:
 private slots:
     void addAnnonce();
     void searchAnnonce();
-    void showAnnonce();
+    void showAnnonce(QModelIndex index);
     void showAPropos();
     void showAide();
 };

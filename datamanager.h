@@ -12,7 +12,9 @@ public:
     QList<ModelAnnonce> *annonces;
     QList<ModelAnnonce> *getAnnonces();
     ModelAnnonce getAnnonce(int index);
+
     void registerAnnonce(ModelAnnonce a);
+    void updateAnnonce(ModelAnnonce a, int index);
 
 private:
     void saveToXML();

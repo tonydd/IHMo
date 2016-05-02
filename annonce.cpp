@@ -13,6 +13,9 @@ Annonce::Annonce(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // -- Background
+    this->setStyleSheet("QDialog {background-image: url('../Ressources/background.png')}");
+
     loadTypes();
     loadNbPieces();
 
@@ -20,6 +23,8 @@ Annonce::Annonce(QWidget *parent) :
     ui->txt_prix->setValidator(new QDoubleValidator);
     ui->txt_surface->setValidator(new QDoubleValidator);
     ui->txt_surface_terrain->setValidator(new QDoubleValidator);
+
+    edition = false; // De base on est pas en mode edition
 }
 
 // Récupérer les différents types de bien du XMl et initialiser la comboBox
@@ -72,10 +77,47 @@ void Annonce::accept() {
     }
 
     ModelAnnonce a = ModelAnnonce(type_bien, type_annonce, surface_habitable, surface_terrain, nb_pieces, addr1, addr2, addr3, desc, prix, imageFile);
-    IHMo::getInstance()->getManager()->registerAnnonce(a);
+
+    if (edition) {
+        IHMo::getInstance()->getManager()->updateAnnonce(a, editing_index);
+    }
+    else {
+        IHMo::getInstance()->getManager()->registerAnnonce(a);
+    }
+
     IHMo::getInstance()->refreshTablewidget();
 
     this->close();
+}
+
+void Annonce::setValues(int index, QString typeBien, QString typeAnnonce, double surfaceHabitable, double superficieTerrain, int nbPieces, QString description, QString adr1, QString adr2, QString adr3, double prix, QString photo) {
+    ui->combo_type->setCurrentIndex( ui->combo_type->findText(typeBien) );
+    ui->combo_pieces->setCurrentIndex( nbPieces - 1);
+
+    ui->txt_addr1->setText(adr1);
+    ui->txt_addr2->setText(adr2);
+    ui->txt_addr3->setText(adr3);
+
+    ui->txt_desc->append(description);
+
+    ui->txt_prix->setText( QString::number(prix) );
+    ui->txt_surface->setText( QString::number(surfaceHabitable) );
+    ui->txt_surface_terrain->setText( QString::number(superficieTerrain) );
+
+    QImage image(photo);
+    ui->lbl_img->setPixmap(QPixmap::fromImage(image));
+    imageFile = photo;
+
+    if (typeAnnonce == "Vente") {
+        ui->rdb_vente->setChecked(true);
+    }
+    else if (typeAnnonce == "Location") {
+        ui->rdb_location->setChecked(true);
+    }
+
+    edition = true; // On est en mode edition
+    editing_index = index;
+
 }
 
 Annonce::~Annonce()

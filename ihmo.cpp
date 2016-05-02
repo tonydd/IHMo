@@ -26,16 +26,6 @@ IHMo::IHMo(QWidget *parent) :
 
     // -- Background
     this->setStyleSheet("QMainWindow {background-image: url('../Ressources/background.png')}");
-    /*QDir dirObj = QDir::current();
-    dirObj.cdUp();
-    QString path = dirObj.path();
-    QString back_file = path+"/background.png";*/
-
-    /*QPixmap back(back_file);
-    back = back.scaled(this->size(), Qt::IgnoreAspectRatio);
-    QPalette palette;
-    palette.setBrush(QPalette::Background, back);
-    this->setPalette(palette);*/
 
     // -- C'est ici qu'on init le Datamanager
     Datamanager *d = new Datamanager;
@@ -61,8 +51,6 @@ IHMo::~IHMo()
 // ********************************************
 
 void IHMo::refreshTablewidget() {
-
-
     QList<ModelAnnonce> *annonces = IHMo::getInstance()->getManager()->getAnnonces();
     QStringList headers;
     headers << "Type de bien" << "Type d'annonce" << "Surface habitable" << "Superficie terrain" << "Nb pieces" << "Description" <<"Addresse" << "Prix" << "Photo";
@@ -133,18 +121,24 @@ void IHMo::showAPropos() {
 }
 
 void IHMo::showAide() {
-    QDir dirObj = QDir::current();
-    dirObj.cdUp();
-    QString path = dirObj.path();
-
-
-    QString helpFile = path+"/Aide.pdf";
-
-    QDesktopServices::openUrl(QUrl("file://" +  helpFile));
+    QDesktopServices::openUrl(QUrl("../Aide.pdf"));
 }
 
-void IHMo::showAnnonce() {
+void IHMo::showAnnonce(QModelIndex index) {
+    int row = index.row();
 
+    ModelAnnonce a = this->getManager()->getAnnonce(row);
+
+
+    // -- Création, remplissage, affichage du form d'édition
+    Annonce *disp = new Annonce;
+    disp->setValues(row,
+                a.mTypeBien, a.mTypeAnnonce, a.mSurfaceHabitable,
+                a.mSuperficieTerrain, a.mNombrePiece, a.mDescription,
+                a.mAdresse1, a.mAdresse2, a.mAdresse3,
+                a.mPrix, a.mPhotoContractuelle);
+
+    disp->show();
 }
 
 
