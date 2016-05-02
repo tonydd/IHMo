@@ -6,11 +6,19 @@
 #include <QDir>
 #include <QUrl>
 
+IHMo *IHMo::instance;
+
 IHMo::IHMo(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::IHMo)
 {
     ui->setupUi(this);
+
+    // -- C'est ici qu'on init le Datamanager et qu'il récup les données du XML
+    Datamanager *d = new Datamanager;
+    this->manager = d;
+
+    IHMo::instance = this;
 }
 
 IHMo::~IHMo()
@@ -42,6 +50,6 @@ void IHMo::showAide() {
     QDesktopServices::openUrl(QUrl("file://" +  helpFile));
 }
 
-void IHMo::registerAnnonce(ModelAnnonce a) {
-    IHMo::annonces.append(a);
+IHMo *IHMo::getInstance() {
+return IHMo::instance;
 }

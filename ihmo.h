@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QList>
 #include "Models/modelannonce.h"
+#include "datamanager.h"
 
 
 namespace Ui {
@@ -18,12 +19,13 @@ public:
     explicit IHMo(QWidget *parent = 0);
     ~IHMo();
 
-    static QList<ModelAnnonce> annonces;
-    static QList<ModelAnnonce>* getAnnonces();
-    static void registerAnnonce(ModelAnnonce a);
+    static IHMo* instance;
+    static IHMo* getInstance();
 
 private:
     Ui::IHMo *ui;
+    Datamanager *manager;
+    Datamanager *getManager();
 
 private slots:
     void addAnnonce();

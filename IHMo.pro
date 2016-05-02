@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         ihmo.cpp \
     annonce.cpp \
     recherche.cpp \
-    Models/modelannonce.cpp
+    Models/modelannonce.cpp \
+    datamanager.cpp
 
 HEADERS  += ihmo.h \
     annonce.h \
     recherche.h \
-    Models/modelannonce.h
+    Models/modelannonce.h \
+    datamanager.h
 
 FORMS    += ihmo.ui \
     annonce.ui \
