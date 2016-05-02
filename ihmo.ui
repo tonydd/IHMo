@@ -70,9 +70,6 @@
        <property name="styleSheet">
         <string notr="true">#tw_annonces {opacity: 0.7;}</string>
        </property>
-       <property name="sizeAdjustPolicy">
-        <enum>QAbstractScrollArea::AdjustIgnored</enum>
-       </property>
        <property name="iconSize">
         <size>
          <width>128</width>

@@ -33,11 +33,9 @@
    </property>
    <property name="styleSheet">
     <string notr="true">#container {
-border: 1px solid black;
-border-radius: 5px;
-padding: 15px;
-}
-</string>
+	border-radius: 5px;
+	background-image: url('../Ressources/background_alpha.png');
+}</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
