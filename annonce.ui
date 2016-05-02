@@ -86,7 +86,7 @@
         <item>
          <widget class="QLineEdit" name="txt_surface">
           <property name="text">
-           <string>25</string>
+           <string/>
           </property>
           <property name="placeholderText">
            <string>Surface en mètres carrés</string>
@@ -103,7 +103,7 @@
         <item>
          <widget class="QLineEdit" name="txt_surface_terrain">
           <property name="text">
-           <string>0</string>
+           <string/>
           </property>
           <property name="placeholderText">
            <string>En mètres carrés, si nécéssaire</string>
@@ -134,7 +134,7 @@
         <item>
          <widget class="QLineEdit" name="txt_addr1">
           <property name="text">
-           <string>12 rue JH</string>
+           <string/>
           </property>
           <property name="placeholderText">
            <string>Ligne 1</string>
@@ -144,7 +144,7 @@
         <item>
          <widget class="QLineEdit" name="txt_addr2">
           <property name="text">
-           <string>67000 STRAS</string>
+           <string/>
           </property>
           <property name="placeholderText">
            <string>Ligne 2</string>
@@ -168,7 +168,7 @@
         <item>
          <widget class="QLineEdit" name="txt_prix">
           <property name="text">
-           <string>455.50</string>
+           <string/>
           </property>
           <property name="placeholderText">
            <string>Saisissez un prix en euros</string>
@@ -289,8 +289,8 @@
    <slot>openImageFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>496</x>
-     <y>440</y>
+     <x>747</x>
+     <y>468</y>
     </hint>
     <hint type="destinationlabel">
      <x>483</x>
