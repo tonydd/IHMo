@@ -28,6 +28,9 @@ public:
 private:
     Ui::IHMo *ui;
 
+protected:
+    void closeEvent(QCloseEvent *event);
+
 private slots:
     void addAnnonce();
     void searchAnnonce();
