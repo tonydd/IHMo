@@ -48,7 +48,12 @@ IHMo::IHMo(QWidget *parent) :
 
     ui->tw_annonces->setColumnCount( nb_col );
     ui->tw_annonces->setHorizontalHeaderLabels(headers);
-    ui->tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    //ui->tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+
+    QMessageBox q;
+    q.setText(Datamanager::getInstance()->loadFromXML());
+    q.exec();
+
 
     // -- Bind "Delete" sur tableWidget
     QShortcut* shortcut = new QShortcut(QKeySequence(QKeySequence::Delete), ui->tw_annonces);
@@ -255,6 +260,16 @@ void IHMo::showAnnonce(QModelIndex index) {
                 a.mPrix, a.mPhotoContractuelle, a.mCreation);
     disp->setW(this);
     disp->show();
+}
+
+void IHMo::saveAnnonces(){
+    if (Datamanager::getInstance()->saveToXML()){
+        QMessageBox q;
+        q.setText("Enregistrement effectué avec succès !");
+        q.exec();
+    }else {
+        QMessageBox::critical(this, "Erreur", "Erreur lors de l'enregistrement");
+    }
 }
 
 void IHMo::deleteRow() {

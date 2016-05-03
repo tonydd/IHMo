@@ -76,7 +76,7 @@ void Annonce::accept() {
         type_annonce = ui->rdb_vente->text();
     }
 
-    ModelAnnonce a = ModelAnnonce(type_bien, type_annonce, surface_habitable, surface_terrain, nb_pieces, addr1, addr2, addr3, desc, prix, imageFile);
+    ModelAnnonce a = ModelAnnonce(Datamanager::getInstance()->getNewIdAnnonce(), type_bien, type_annonce, surface_habitable, surface_terrain, nb_pieces, addr1, addr2, addr3, desc, prix, imageFile);
 
     a.setLastUpdate(QDate::currentDate());
     if (edition) {

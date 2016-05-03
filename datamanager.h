@@ -2,6 +2,8 @@
 #define DATAMANAGER_H
 
 #include <QList>
+#include <QtXml>
+#include <QMessageBox>
 #include "Models/modelannonce.h"
 
 class Datamanager
@@ -18,8 +20,10 @@ public:
     void updateAnnonce(ModelAnnonce a, int index);
     void deleteAnnonce(int idx);
 
-    void saveToXML();
-    void loadFromXML();
+    bool saveToXML();
+    QString loadFromXML();
+
+    int getNewIdAnnonce();
 
 private:
     static Datamanager *instance;

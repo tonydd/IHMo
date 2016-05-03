@@ -35,6 +35,7 @@ private slots:
     void showAnnonce(QModelIndex index);
     void showAPropos();
     void showAide();
+    void saveAnnonces();
 
     void deleteRow();
 };

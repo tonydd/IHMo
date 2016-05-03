@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <QtXml>
 #include <QString>
 #include <QStringList>
 #include <QDate>
@@ -16,7 +17,8 @@ public:
 
     // -- Méthodes
 
-    ModelAnnonce(QString peTypeBien,
+    ModelAnnonce(int piIdAnnonce,
+             QString peTypeBien,
              QString peTypeAnnonce,
              double pdblSurfaceHabitable,
              double pdblSuperficieTerrain,
@@ -28,13 +30,17 @@ public:
              double pdblPrix,
              QString ptbPhotoContractuelle
         );
+    ModelAnnonce();
 
 
     char* readFileBytes(const char *name);
+    QDomElement annonceToXml(QDomDocument &d);
+    void annonceFromXml(QDomElement &d);
     void toString();
     static void qPrint(QString s);
 
     // -- Attributs
+    int mIdAnnonce;
     QString mTypeBien;
     QString mTypeAnnonce;
     double mSurfaceHabitable;
