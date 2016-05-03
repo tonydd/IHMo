@@ -14,7 +14,7 @@
    <string>IHMo</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow {background-image: url('../Ressources/background.jpg')}</string>
+   <string notr="true">QMainWindow {background-image: url('../Ressources/background-dialog.jpg')}</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="styleSheet">
@@ -418,7 +418,7 @@
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background-color: #5cb85c;</string>
          </property>
          <property name="text">
           <string>Ajouter une annonce</string>
