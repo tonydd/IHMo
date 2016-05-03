@@ -597,8 +597,8 @@
    <slot>showAnnonce(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>179</x>
-     <y>367</y>
+     <x>180</x>
+     <y>366</y>
     </hint>
     <hint type="destinationlabel">
      <x>589</x>
@@ -629,12 +629,28 @@
    <slot>emptySearch()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>574</x>
-     <y>594</y>
+     <x>796</x>
+     <y>618</y>
     </hint>
     <hint type="destinationlabel">
      <x>485</x>
      <y>613</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSauvegarder</sender>
+   <signal>triggered()</signal>
+   <receiver>IHMo</receiver>
+   <slot>saveAnnonces()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>322</y>
     </hint>
    </hints>
   </connection>
@@ -646,5 +662,6 @@
   <slot>showAide()</slot>
   <slot>showAnnonce(QModelIndex)</slot>
   <slot>emptySearch()</slot>
+  <slot>saveAnnonces()</slot>
  </slots>
 </ui>
