@@ -26,6 +26,10 @@ void Datamanager::updateAnnonce(ModelAnnonce a, int index) {
     this->getAnnonces()->replace(index, a);
 }
 
+void Datamanager::deleteAnnonce(int idx) {
+    this->getAnnonces()->removeAt(idx);
+}
+
 // -- Persistance des données
 void Datamanager::saveToXML() {
 

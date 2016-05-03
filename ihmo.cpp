@@ -11,6 +11,8 @@
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QAbstractItemView>
+#include <QShortcut>
+#include <QKeySequence>
 #include <QIcon>
 #include <QDir>
 #include <QUrl>
@@ -25,10 +27,22 @@ IHMo::IHMo(QWidget *parent) :
     IHMo::instance = this;
 
     // -- Préparation du table widget
-    ui->tw_annonces->setStyleSheet("QTableView {selection-background-color: silver;}");
     ui->tw_annonces->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tw_annonces->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tw_annonces->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    QStringList headers;
+    headers << "Type de bien" << "Type d'annonce" << "Surface habitable" << "Superficie terrain" << "Nb pieces" << "Description" <<"Addresse" << "Prix" << "Photo";
+
+    int nb_col = headers.count();
+
+    ui->tw_annonces->setColumnCount( nb_col );
+    ui->tw_annonces->setHorizontalHeaderLabels(headers);
+    ui->tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+
+    // -- Bind "Delete" su tableWidget
+    QShortcut* shortcut = new QShortcut(QKeySequence(QKeySequence::Delete), ui->tw_annonces);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(deleteRow()));
 
     this->refreshTablewidget();
 
@@ -45,17 +59,11 @@ IHMo::~IHMo()
 
 void IHMo::refreshTablewidget() {
     QList<ModelAnnonce> *annonces = Datamanager::getInstance()->getAnnonces();
-    QStringList headers;
-    headers << "Type de bien" << "Type d'annonce" << "Surface habitable" << "Superficie terrain" << "Nb pieces" << "Description" <<"Addresse" << "Prix" << "Photo";
 
     QTableWidget *tw_annonces = ui->tw_annonces;
-    int nb_col = headers.count();
     int col_index;
 
     tw_annonces->setRowCount( annonces->count() );
-    tw_annonces->setColumnCount( nb_col );
-    tw_annonces->setHorizontalHeaderLabels(headers);
-    tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 
     for (int line = 0; line < annonces->count(); line++) {
         ModelAnnonce annonce = annonces->at(line);
@@ -129,5 +137,13 @@ void IHMo::showAnnonce(QModelIndex index) {
                 a.mPrix, a.mPhotoContractuelle, a.mCreation);
     disp->setW(this);
     disp->show();
+}
+
+void IHMo::deleteRow() {
+    QModelIndex idx = ui->tw_annonces->currentIndex();
+    if (idx.isValid()) {
+        Datamanager::getInstance()->deleteAnnonce(idx.row());
+        this->refreshTablewidget();
+    }
 }
 

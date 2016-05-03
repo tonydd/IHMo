@@ -16,6 +16,7 @@ public:
 
     void registerAnnonce(ModelAnnonce a);
     void updateAnnonce(ModelAnnonce a, int index);
+    void deleteAnnonce(int idx);
 
     void saveToXML();
     void loadFromXML();

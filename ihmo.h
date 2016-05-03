@@ -34,6 +34,8 @@ private slots:
     void showAnnonce(QModelIndex index);
     void showAPropos();
     void showAide();
+
+    void deleteRow();
 };
 
 #endif // IHMO_H
