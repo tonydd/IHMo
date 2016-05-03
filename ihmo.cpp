@@ -13,6 +13,9 @@
 #include <QAbstractItemView>
 #include <QShortcut>
 #include <QKeySequence>
+#include <QValidator>
+#include <QDoubleValidator>
+#include <QIntValidator>
 #include <QIcon>
 #include <QDir>
 #include <QUrl>
@@ -25,6 +28,13 @@ IHMo::IHMo(QWidget *parent) :
 {
     ui->setupUi(this);
     IHMo::instance = this;
+
+    // -- Préparation des validateurs
+    ui->txt_search_pieceMin->setValidator(new QIntValidator);
+    ui->txt_search_piecesMax->setValidator(new QIntValidator);
+
+    ui->txt_search_prixMax->setValidator(new QDoubleValidator);
+    ui->txt_search_prixMin->setValidator(new QDoubleValidator);
 
     // -- Préparation du table widget
     ui->tw_annonces->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -40,9 +50,13 @@ IHMo::IHMo(QWidget *parent) :
     ui->tw_annonces->setHorizontalHeaderLabels(headers);
     ui->tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 
-    // -- Bind "Delete" su tableWidget
+    // -- Bind "Delete" sur tableWidget
     QShortcut* shortcut = new QShortcut(QKeySequence(QKeySequence::Delete), ui->tw_annonces);
     connect(shortcut, SIGNAL(activated()), this, SLOT(deleteRow()));
+
+    // -- Combobox type bien
+    QStringList types=(QStringList()<<""<<"Maison"<<"Appartement"<<"Villa"<<"Chateau");
+    this->ui->cb_search_typeBien->addItems(types);
 
     this->refreshTablewidget();
 
@@ -87,7 +101,7 @@ void IHMo::refreshTablewidget() {
         tw_annonces->setItem(line, col_index, new QTableWidgetItem(annonce.mDescription));
         col_index++;
 
-        tw_annonces->setItem(line, col_index, new QTableWidgetItem(annonce.mAdresse1 + ", " + annonce.mAdresse2 + ", " + annonce.mAdresse3));
+        tw_annonces->setItem(line, col_index, new QTableWidgetItem(annonce.mAdresse1 + "\n" + annonce.mAdresse2 + "\n" + annonce.mAdresse3));
         col_index++;
 
         tw_annonces->setItem(line, col_index, new QTableWidgetItem(QString::number(annonce.mPrix)));
@@ -111,7 +125,111 @@ void IHMo::addAnnonce() {
 }
 
 void IHMo::searchAnnonce() {
+    // -- Récupération de toutes les données de recherche
+    QString typeAnnonce = "";
+    if (ui->ckb_search_locations->isChecked()) {
+        typeAnnonce = "Location";
+    }
+    else if (ui->ckb_search_ventes->isChecked()) {
+        typeAnnonce = "Vente";
+    }
 
+    QString typeBien = ui->cb_search_typeBien->currentText();
+    QString adr = ui->txt_search_adresse->text();
+
+    double prixMin = ui->txt_search_prixMin->text().toDouble();
+    double prixMax = ui->txt_search_prixMax->text().toDouble();
+
+    int piecesMin = ui->txt_search_pieceMin->text().toInt();
+    int piecesMax = ui->txt_search_piecesMax->text().toInt();
+
+    bool avecPhoto = ui->ckb_search_photo->isChecked();
+
+    // -- Application de la recherche
+    QList<ModelAnnonce> *annonces = Datamanager::getInstance()->getAnnonces();
+    QTableWidget *tw_annonces = ui->tw_annonces;
+
+    // -- On part du principe qu'avant application de la recherche toute sle slignes sont affichées
+    for (int i = 0; i < tw_annonces->rowCount(); i++) {
+        tw_annonces->setRowHidden(i, false);
+    }
+
+    for (int i = 0; i < annonces->count(); i++) {
+        ModelAnnonce ann = annonces->at(i);
+
+        // ----- Gestion type annonce
+        if (typeAnnonce != "") {
+            if (ann.mTypeAnnonce != typeAnnonce) {
+                qDebug("Caché par type annonce");
+                tw_annonces->setRowHidden(i, true);
+            }
+        }
+
+        // ----- gestion type bien
+        if (typeBien != "") {
+            if (ann.mTypeBien != typeBien) {
+                qDebug("Caché par type bien");
+                tw_annonces->setRowHidden(i, true);
+            }
+        }
+
+        // ----- Gestion choix prix
+        if (ann.mPrix <= prixMin) {
+            qDebug("Caché par prix mib");
+            tw_annonces->setRowHidden(i, true);
+        }
+        if (prixMax > 0 && ann.mPrix > prixMax) {
+            qDebug("Caché par prix max");
+            tw_annonces->setRowHidden(i, true);
+        }
+
+        // ----- Gestion nombre de pièces
+        if (ann.mNombrePiece <= piecesMin) {
+            qDebug("Caché par pieces min");
+            tw_annonces->setRowHidden(i, true);
+        }
+        if (piecesMax > 0 && ann.mNombrePiece >= piecesMax) {
+            qDebug("Caché par pieces max");
+            tw_annonces->setRowHidden(i, true);
+        }
+
+        // ----- Adresse
+        if (adr != "") {
+            QString fullAddress = ann.mAdresse1 + ann.mAdresse2 + ann.mAdresse3;
+            qDebug(fullAddress.toStdString().c_str());
+
+            if (! fullAddress.contains(adr, Qt::CaseInsensitive)) {
+                qDebug("Caché par adr");
+                tw_annonces->setRowHidden(i, true);
+            }
+        }
+
+        // ----- Gestion photo
+        if (avecPhoto && ann.mPhotoContractuelle == "") {
+            qDebug("Caché par photo");
+            tw_annonces->setRowHidden(i, true);
+        }
+
+    }
+
+
+}
+
+void IHMo::emptySearch() {
+    ui->ckb_search_locations->setChecked(false);
+    ui->ckb_search_ventes->setChecked(false);
+    ui->ckb_search_photo->setChecked(false);
+
+    ui->cb_search_typeBien->setCurrentIndex(0);
+    ui->txt_search_adresse->setText("");
+
+    ui->txt_search_prixMin->setText("");
+    ui->txt_search_prixMax->setText("");
+
+    ui->txt_search_pieceMin->setText("");
+    ui->txt_search_piecesMax->setText("");
+
+    searchAnnonce();
 }
 
 void IHMo::showAPropos() {
@@ -142,8 +260,20 @@ void IHMo::showAnnonce(QModelIndex index) {
 void IHMo::deleteRow() {
     QModelIndex idx = ui->tw_annonces->currentIndex();
     if (idx.isValid()) {
-        Datamanager::getInstance()->deleteAnnonce(idx.row());
-        this->refreshTablewidget();
+        switch( QMessageBox::information( this, "Confirmation de l'action",
+                                          "Voulez-vous vraiment supprimer cette annonce ?"
+                                          "", "Oui", "Non",
+                                          0, 1 ) ) {
+        case 0:
+            Datamanager::getInstance()->deleteAnnonce(idx.row());
+            this->refreshTablewidget();
+            break;
+        case 1:
+        default: // just for sanity
+            break;
+        }
+
+
     }
 }
 

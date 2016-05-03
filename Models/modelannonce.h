@@ -54,8 +54,13 @@ public:
     QDate mLastUpdate;
     QDate mFin;
 
+    // -- Méthodes
+    void setCreationDate(QDate d);
+    void setLastUpdate(QDate d);
+
     ~ModelAnnonce();
-private:
+protected:
+
 
 };
 

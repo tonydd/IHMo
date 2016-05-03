@@ -118,14 +118,14 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QRadioButton" name="radioButton_2">
+           <widget class="QCheckBox" name="ckb_search_ventes">
             <property name="text">
              <string>Ventes</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="radioButton">
+           <widget class="QCheckBox" name="ckb_search_locations">
             <property name="text">
              <string>Locations</string>
             </property>
@@ -157,12 +157,12 @@
           <item>
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Type d'annonce</string>
+             <string>Type de bien</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox"/>
+           <widget class="QComboBox" name="cb_search_typeBien"/>
           </item>
           <item>
            <spacer name="horizontalSpacer_3">
@@ -195,12 +195,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="txt_search_prixMin">
             <property name="maximumSize">
              <size>
               <width>100</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="placeholderText">
+             <string>Prix min</string>
             </property>
            </widget>
           </item>
@@ -212,12 +215,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit_2">
+           <widget class="QLineEdit" name="txt_search_prixMax">
             <property name="maximumSize">
              <size>
               <width>100</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="placeholderText">
+             <string>Prix max</string>
             </property>
            </widget>
           </item>
@@ -252,12 +258,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit_3">
+           <widget class="QLineEdit" name="txt_search_pieceMin">
             <property name="maximumSize">
              <size>
-              <width>75</width>
+              <width>80</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="placeholderText">
+             <string>Pièces min</string>
             </property>
            </widget>
           </item>
@@ -269,17 +278,60 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit_4">
+           <widget class="QLineEdit" name="txt_search_piecesMax">
             <property name="maximumSize">
              <size>
-              <width>75</width>
+              <width>80</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="placeholderText">
+             <string>Pièces max</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Adresse contient</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="txt_search_adresse">
+            <property name="maximumSize">
+             <size>
+              <width>350</width>
               <height>16777215</height>
              </size>
             </property>
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_5">
+           <spacer name="horizontalSpacer_6">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -302,7 +354,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QCheckBox" name="checkBox">
+           <widget class="QCheckBox" name="ckb_search_photo">
             <property name="text">
              <string>Annonces avec photo uniquement</string>
             </property>
@@ -336,6 +388,29 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #d9534f;</string>
+         </property>
+         <property name="text">
+          <string>RAZ</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Chercher</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_2">
@@ -439,8 +514,8 @@
    <slot>addAnnonce()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>886</x>
-     <y>550</y>
+     <x>1222</x>
+     <y>610</y>
     </hint>
     <hint type="destinationlabel">
      <x>549</x>
@@ -520,11 +595,43 @@
    <hints>
     <hint type="sourcelabel">
      <x>179</x>
-     <y>444</y>
+     <y>367</y>
     </hint>
     <hint type="destinationlabel">
-     <x>149</x>
-     <y>558</y>
+     <x>589</x>
+     <y>418</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>IHMo</receiver>
+   <slot>searchAnnonce()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>866</x>
+     <y>603</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>742</x>
+     <y>603</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>IHMo</receiver>
+   <slot>emptySearch()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>574</x>
+     <y>594</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>485</x>
+     <y>613</y>
     </hint>
    </hints>
   </connection>
@@ -535,5 +642,6 @@
   <slot>showAPropos()</slot>
   <slot>showAide()</slot>
   <slot>showAnnonce(QModelIndex)</slot>
+  <slot>emptySearch()</slot>
  </slots>
 </ui>

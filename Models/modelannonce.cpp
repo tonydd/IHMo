@@ -36,9 +36,6 @@ ModelAnnonce::ModelAnnonce(QString peTypeBien,
     mDescription = pstrDescription;
     mPrix = pdblPrix;
     mPhotoContractuelle = ptbPhotoContractuelle;
-
-    mCreation = QDate::currentDate();
-    mLastUpdate = QDate::currentDate();
 }
 
 void ModelAnnonce::toString() {
@@ -59,6 +56,14 @@ void ModelAnnonce::toString() {
 
 void ModelAnnonce::qPrint(QString s) {
     qDebug(s.toStdString().c_str());
+}
+
+void ModelAnnonce::setCreationDate(QDate d) {
+    mCreation = d;
+}
+
+void ModelAnnonce::setLastUpdate(QDate d) {
+
 }
 
 ModelAnnonce::~ModelAnnonce() {

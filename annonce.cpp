@@ -30,7 +30,7 @@ Annonce::Annonce(QWidget *parent) :
 // Récupérer les différents types de bien du XMl et initialiser la comboBox
 void Annonce::loadTypes() {
     // A remplacer par les données du XML
-    QStringList types=(QStringList()<<"Maison"<<"Appartement"<<"Villa"<<"Poubelle");
+    QStringList types=(QStringList()<<"Maison"<<"Appartement"<<"Villa"<<"Chateau");
 
 
     this->ui->combo_type->addItems(types);
@@ -78,12 +78,15 @@ void Annonce::accept() {
 
     ModelAnnonce a = ModelAnnonce(type_bien, type_annonce, surface_habitable, surface_terrain, nb_pieces, addr1, addr2, addr3, desc, prix, imageFile);
 
+    a.setLastUpdate(QDate::currentDate());
     if (edition) {
         Datamanager::getInstance()->updateAnnonce(a, editing_index);
     }
     else {
+        a.setCreationDate(QDate::currentDate());
         Datamanager::getInstance()->registerAnnonce(a);
     }
+
 
     w->refreshTablewidget();
     this->close();
@@ -114,7 +117,7 @@ void Annonce::setValues(int index, QString typeBien, QString typeAnnonce, double
         ui->rdb_location->setChecked(true);
     }
 
-    ui->lbl_date->setText("Mise en lignz le : " + crea.toString("dd/MM/yyyy"));
+    ui->lbl_date->setText("Mise en ligne le : " + crea.toString("dd/MM/yyyy"));
     ui->lbl_date->setVisible(true);
 
     edition = true; // On est en mode edition
@@ -130,3 +133,19 @@ Annonce::~Annonce()
 {
     delete ui;
 }
+
+// Validateurs string
+class QEmptyStringValidator : public QValidator
+{
+   Q_OBJECT
+public:
+   explicit QEmptyStringValidator(QObject *parent = 0);
+   virtual State validate ( QString & input, int & pos ) const
+   {
+       if (input.isEmpty())
+           return Invalid;
+
+       return Acceptable;
+
+   }
+};

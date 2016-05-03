@@ -31,6 +31,7 @@ private:
 private slots:
     void addAnnonce();
     void searchAnnonce();
+    void emptySearch();
     void showAnnonce(QModelIndex index);
     void showAPropos();
     void showAide();
