@@ -19,6 +19,7 @@
 #include <QIcon>
 #include <QDir>
 #include <QUrl>
+#include <QCloseEvent>
 
 IHMo *IHMo::instance;
 
@@ -290,5 +291,10 @@ void IHMo::deleteRow() {
 
 
     }
+}
+
+void IHMo::closeEvent (QCloseEvent *event)
+{
+    saveAnnonces();
 }
 
