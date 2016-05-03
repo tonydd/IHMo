@@ -126,7 +126,7 @@ void IHMo::showAnnonce(QModelIndex index) {
                 a.mTypeBien, a.mTypeAnnonce, a.mSurfaceHabitable,
                 a.mSuperficieTerrain, a.mNombrePiece, a.mDescription,
                 a.mAdresse1, a.mAdresse2, a.mAdresse3,
-                a.mPrix, a.mPhotoContractuelle);
+                a.mPrix, a.mPhotoContractuelle, a.mCreation);
     disp->setW(this);
     disp->show();
 }

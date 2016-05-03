@@ -25,7 +25,7 @@ public:
     void setValues(int index,
             QString typeBien, QString typeAnnonce, double surfaceHabitable,
             double superficieTerrain, int nbPieces, QString description,
-            QString adr1, QString adr2, QString adr3, double prix, QString photo);
+            QString adr1, QString adr2, QString adr3, double prix, QString photo, QDate crea);
     ~Annonce();
 
 private:

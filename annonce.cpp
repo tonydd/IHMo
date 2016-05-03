@@ -23,6 +23,8 @@ Annonce::Annonce(QWidget *parent) :
     edition = false; // De base on est pas en mode edition
     editing_index = -1;
 
+    ui->lbl_date->setVisible(false);
+
 }
 
 // Récupérer les différents types de bien du XMl et initialiser la comboBox
@@ -87,7 +89,7 @@ void Annonce::accept() {
     this->close();
 }
 
-void Annonce::setValues(int index, QString typeBien, QString typeAnnonce, double surfaceHabitable, double superficieTerrain, int nbPieces, QString description, QString adr1, QString adr2, QString adr3, double prix, QString photo) {
+void Annonce::setValues(int index, QString typeBien, QString typeAnnonce, double surfaceHabitable, double superficieTerrain, int nbPieces, QString description, QString adr1, QString adr2, QString adr3, double prix, QString photo, QDate crea) {
     ui->combo_type->setCurrentIndex( ui->combo_type->findText(typeBien) );
     ui->combo_pieces->setCurrentIndex( nbPieces - 1);
 
@@ -111,6 +113,9 @@ void Annonce::setValues(int index, QString typeBien, QString typeAnnonce, double
     else if (typeAnnonce == "Location") {
         ui->rdb_location->setChecked(true);
     }
+
+    ui->lbl_date->setText("Mise en lignz le : " + crea.toString("dd/MM/yyyy"));
+    ui->lbl_date->setVisible(true);
 
     edition = true; // On est en mode edition
     editing_index = index;

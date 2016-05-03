@@ -7,6 +7,7 @@
 #include <fstream>
 #include <QString>
 #include <QStringList>
+#include <QDate>
 
 
 class ModelAnnonce
@@ -48,6 +49,10 @@ public:
 
     QString mPhotoContractuelle;
     QStringList mGallerie;
+
+    QDate mCreation;
+    QDate mLastUpdate;
+    QDate mFin;
 
     ~ModelAnnonce();
 private:
