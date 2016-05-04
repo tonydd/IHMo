@@ -65,6 +65,7 @@ IHMo::IHMo(QWidget *parent) :
     this->ui->cb_search_typeBien->addItems(types);
 
     this->refreshTablewidget();
+    ui->tw_annonces->resizeRowsToContents();
 
 }
 
@@ -235,6 +236,7 @@ void IHMo::emptySearch() {
     ui->ckb_search_locations->setChecked(false);
     ui->ckb_search_ventes->setChecked(false);
     ui->ckb_search_photo->setChecked(false);
+    ui->ckb_search_enableDate->setChecked(false);
 
     ui->cb_search_typeBien->setCurrentIndex(0);
     ui->txt_search_adresse->setText("");
