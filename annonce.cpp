@@ -15,10 +15,13 @@ Annonce::Annonce(QWidget *parent) :
     loadTypes();
     loadNbPieces();
 
+    QRegExpValidator* rxv = new QRegExpValidator(QRegExp("[+-]?\\d*[\\.,]?\\d+"), this);
+
     // -- Validateurs
-    ui->txt_prix->setValidator(new QDoubleValidator);
-    ui->txt_surface->setValidator(new QDoubleValidator);
-    ui->txt_surface_terrain->setValidator(new QDoubleValidator);
+
+    ui->txt_prix->setValidator(rxv);
+    ui->txt_surface->setValidator(rxv);
+    ui->txt_surface_terrain->setValidator(rxv);
 
     ui->btn_Vendu->setVisible(false);
     ui->lblVendu->setVisible(false);

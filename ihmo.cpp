@@ -35,8 +35,10 @@ IHMo::IHMo(QWidget *parent) :
     ui->txt_search_pieceMin->setValidator(new QIntValidator);
     ui->txt_search_piecesMax->setValidator(new QIntValidator);
 
-    ui->txt_search_prixMax->setValidator(new QDoubleValidator);
-    ui->txt_search_prixMin->setValidator(new QDoubleValidator);
+    QRegExpValidator* rxv = new QRegExpValidator(QRegExp("[+-]?\\d*[\\.,]?\\d+"), this);
+
+    ui->txt_search_prixMax->setValidator(rxv);
+    ui->txt_search_prixMin->setValidator(rxv);
 
     // -- Préparation du table widget
     ui->tw_annonces->setEditTriggers(QAbstractItemView::NoEditTriggers);
