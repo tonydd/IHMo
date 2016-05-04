@@ -100,7 +100,7 @@ void ModelAnnonce::annonceFromXml(QDomElement &d){
     this->mFin = QDate::fromString(d.attribute("mFin",""), "dd/MM/yyyy");
     this->mEstOccupe = d.attribute("mEstOccupe","").toInt() != 0;
     this->mNomAcheteur = d.attribute("mNomAcheteur","");
-    this->toString();
+    //this->toString();
 }
 
 ModelAnnonce::ModelAnnonce(){

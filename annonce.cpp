@@ -63,7 +63,11 @@ void Annonce::openImageFile() {
 
     imageFile = finalPath;
     QImage image(imageFile);
-    this->ui->lbl_img->setPixmap(QPixmap::fromImage(image));
+    QPixmap p = QPixmap::fromImage(image);
+    int w = 375;
+    int h = 250;
+
+    this->ui->lbl_img->setPixmap(p.scaled(w, h, Qt::KeepAspectRatio));
 }
 
 void Annonce::accept() {
@@ -120,8 +124,14 @@ void Annonce::setValues(int index, QString typeBien, QString typeAnnonce, double
     ui->txt_surface->setText( QString::number(surfaceHabitable) );
     ui->txt_surface_terrain->setText( QString::number(superficieTerrain) );
 
+
     QImage image(photo);
-    ui->lbl_img->setPixmap(QPixmap::fromImage(image));
+    QPixmap p = QPixmap::fromImage(image);
+    int w = 375;
+    int h = 250;
+
+    this->ui->lbl_img->setPixmap(p.scaled(w, h, Qt::KeepAspectRatio));
+
     imageFile = photo;
 
     if (typeAnnonce == "Vente") {
@@ -155,7 +165,11 @@ void Annonce::setAnnonce(ModelAnnonce a){
     ui->txt_surface_terrain->setText( QString::number(a.mSuperficieTerrain) );
 
     QImage image(a.mPhotoContractuelle);
-    ui->lbl_img->setPixmap(QPixmap::fromImage(image));
+    QPixmap p = QPixmap::fromImage(image);
+    int w = 375;
+    int h = 250;
+
+    this->ui->lbl_img->setPixmap(p.scaled(w, h, Qt::KeepAspectRatio));
     imageFile = a.mPhotoContractuelle;
 
     if (a.mTypeAnnonce == "Vente") {

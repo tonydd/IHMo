@@ -7,9 +7,9 @@ int main(int argc, char *argv[])
     IHMo w;
 
     // -- Text encoding
-    QTextCodec::setCodecForCStrings((QTextCodec::codecForName("UTF-8")));
+    //QTextCodec::setCodecForCStrings((QTextCodec::codecForName("UTF-8")));
 
-    w.show();
+    w.showMaximized();
 
     return a.exec();
 }
