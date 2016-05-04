@@ -50,7 +50,7 @@ IHMo::IHMo(QWidget *parent) :
 
     ui->tw_annonces->setColumnCount( nb_col );
     ui->tw_annonces->setHorizontalHeaderLabels(headers);
-    ui->tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    ui->tw_annonces->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 
     Datamanager::getInstance()->loadFromXML();

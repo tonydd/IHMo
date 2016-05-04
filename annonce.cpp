@@ -47,9 +47,19 @@ void Annonce::loadNbPieces() {
 
 void Annonce::openImageFile() {
     QString fileName = QFileDialog::getOpenFileName(this, "Choisir le fichier image","/home");
-    imageFile = fileName;
 
-    QImage image(fileName);
+
+    QFile f(fileName);
+
+    QFileInfo fileInfo(f.fileName());
+    QString fileNameCut(fileInfo.fileName());
+    QString finalPath(QDir::currentPath() + QDir::separator() + "img" + QDir::separator() + fileNameCut);
+
+    //QFile img = QFile(fileName);
+    QFile::copy(fileName, finalPath);
+
+    imageFile = finalPath;
+    QImage image(imageFile);
     this->ui->lbl_img->setPixmap(QPixmap::fromImage(image));
 }
 
@@ -83,6 +93,7 @@ void Annonce::accept() {
 
     mAnnonce.setLastUpdate(QDate::currentDate());
     if (!edition){
+        mAnnonce.mEstOccupe = false;
         mAnnonce.mIdAnnonce = Datamanager::getInstance()->getNewIdAnnonce();
         mAnnonce.setCreationDate(QDate::currentDate());
     }
@@ -175,7 +186,7 @@ void Annonce::setVendu(){
     if (mAnnonce.mTypeAnnonce.compare("Location") == 0){
         desc = QString("Nom du locataire :");
     }else if (mAnnonce.mTypeAnnonce.compare("Vente") == 0){
-        desc = QString("Nom du vendeur :");
+        desc = QString("Nom de l'acheteur' :");
     }
     QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
                                       desc, QLineEdit::Normal,
