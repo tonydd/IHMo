@@ -160,6 +160,8 @@ void IHMo::searchAnnonce() {
     int piecesMax = ui->txt_search_piecesMax->text().toInt();
 
     bool avecPhoto = ui->ckb_search_photo->isChecked();
+    bool vendusUniquement = ui->ckb_search_vendus->isChecked();
+    bool louesUniquement = ui->ckb_search_loues->isChecked();
 
     // -- Application de la recherche
     QList<ModelAnnonce> *annonces = Datamanager::getInstance()->getAnnonces();
@@ -185,6 +187,20 @@ void IHMo::searchAnnonce() {
         if (typeBien != "") {
             if (ann.mTypeBien != typeBien) {
                 qDebug("Caché par type bien");
+                tw_annonces->setRowHidden(i, true);
+            }
+        }
+
+        // -- Vendus
+        if (vendusUniquement) {
+            if (!(ann.mEstOccupe && ann.mTypeAnnonce == "Vente")) {
+                tw_annonces->setRowHidden(i, true);
+            }
+        }
+
+        // -- Loues
+        if (louesUniquement) {
+            if (!(ann.mEstOccupe && ann.mTypeAnnonce == "Location")) {
                 tw_annonces->setRowHidden(i, true);
             }
         }
@@ -241,6 +257,10 @@ void IHMo::searchAnnonce() {
 void IHMo::emptySearch() {
     ui->ckb_search_locations->setChecked(false);
     ui->ckb_search_ventes->setChecked(false);
+
+    ui->ckb_search_vendus->setChecked(false);
+    ui->ckb_search_loues->setChecked(false);
+
     ui->ckb_search_photo->setChecked(false);
     ui->ckb_search_enableDate->setChecked(false);
 
