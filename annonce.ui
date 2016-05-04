@@ -474,6 +474,5 @@
  <slots>
   <slot>openImageFile()</slot>
   <slot>setEstOccupe(bool)</slot>
-  <slot>save()</slot>
  </slots>
 </ui>

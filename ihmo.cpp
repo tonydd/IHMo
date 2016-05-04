@@ -270,7 +270,9 @@ void IHMo::showAnnonce(QModelIndex index) {
 
 void IHMo::saveAnnonces(){
     if (Datamanager::getInstance()->saveToXML()){
-
+        QMessageBox q;
+        q.setText("Enregistrement effectué avec succès !");
+        q.exec();
     }else {
         QMessageBox::critical(this, "Erreur", "Erreur lors de l'enregistrement");
     }
@@ -305,6 +307,6 @@ void IHMo::showStatistiques(){
 
 void IHMo::closeEvent (QCloseEvent *event)
 {
-    saveAnnonces();
+    Datamanager::getInstance()->saveToXML();
 }
 

@@ -476,6 +476,17 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
   <action name="actionQuitter">
    <property name="text">
     <string>Quitter</string>
@@ -654,6 +665,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionStatistiques</sender>
+   <signal>triggered()</signal>
+   <receiver>IHMo</receiver>
+   <slot>showStatistiques()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>322</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addAnnonce()</slot>
@@ -663,5 +690,6 @@
   <slot>showAnnonce(QModelIndex)</slot>
   <slot>emptySearch()</slot>
   <slot>saveAnnonces()</slot>
+  <slot>showStatistiques()</slot>
  </slots>
 </ui>
