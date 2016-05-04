@@ -53,6 +53,8 @@ public:
 
     double mPrix;
 
+    QString mNomAcheteur;
+
     QString mPhotoContractuelle;
     QStringList mGallerie;
 

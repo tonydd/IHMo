@@ -334,9 +334,32 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="chkOccupe">
+       <widget class="QLabel" name="lblVendu">
         <property name="text">
-         <string>Est occupé</string>
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_Vendu">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #0275d8;
+    border-style: outset;
+    border-radius: 10px;
+	border-width: 1px;
+	border-color: beige;
+	color: white;
+    font: bold 14px;
+    min-width: 10em;
+    padding: 6px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Loué</string>
         </property>
        </widget>
       </item>
@@ -455,24 +478,24 @@
    </hints>
   </connection>
   <connection>
-   <sender>chkOccupe</sender>
-   <signal>clicked(bool)</signal>
+   <sender>btn_Vendu</sender>
+   <signal>clicked()</signal>
    <receiver>Annonce</receiver>
-   <slot>setEstOccupe(bool)</slot>
+   <slot>setVendu()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>92</x>
-     <y>526</y>
+     <x>94</x>
+     <y>525</y>
     </hint>
     <hint type="destinationlabel">
-     <x>178</x>
-     <y>564</y>
+     <x>151</x>
+     <y>559</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>openImageFile()</slot>
-  <slot>setEstOccupe(bool)</slot>
+  <slot>setVendu()</slot>
  </slots>
 </ui>

@@ -20,6 +20,9 @@ Annonce::Annonce(QWidget *parent) :
     ui->txt_surface->setValidator(new QDoubleValidator);
     ui->txt_surface_terrain->setValidator(new QDoubleValidator);
 
+    ui->btn_Vendu->setVisible(false);
+    ui->lblVendu->setVisible(false);
+
     edition = false; // De base on est pas en mode edition
     editing_index = -1;
 
@@ -75,7 +78,7 @@ void Annonce::accept() {
     }
 
     mAnnonce.mTypeAnnonce = type_annonce;
-    mAnnonce.mEstOccupe = ui->chkOccupe->isChecked();
+    //mAnnonce.mEstOccupe = ui->chkOccupe->isChecked();
     mAnnonce.mPhotoContractuelle = imageFile;
 
     mAnnonce.setLastUpdate(QDate::currentDate());
@@ -143,9 +146,11 @@ void Annonce::setAnnonce(ModelAnnonce a){
 
     if (a.mTypeAnnonce == "Vente") {
         ui->rdb_vente->setChecked(true);
+        ui->btn_Vendu->setText("Vendu");
     }
     else if (a.mTypeAnnonce == "Location") {
         ui->rdb_location->setChecked(true);
+        ui->btn_Vendu->setText("Loué");
     }
 
     ui->lbl_date->setText("Mise en ligne le : " + a.mCreation.toString("dd/MM/yyyy"));
@@ -153,11 +158,33 @@ void Annonce::setAnnonce(ModelAnnonce a){
 
     edition = true; // On est en mode edition
 
-    ui->chkOccupe->setChecked(a.mEstOccupe);
+    if (a.mEstOccupe){
+        ui->lblVendu->setText(QString(ui->btn_Vendu->text() + " à " + a.mNomAcheteur + " le " + a.mFin.toString("dd/MM/yyyy")));
+        ui->lblVendu->setVisible(true);
+    }else {
+        ui->btn_Vendu->setVisible(true);
+    }
+
+
+    //ui->chkOccupe->setChecked(a.mEstOccupe);
 }
 
-void Annonce::setEstOccupe(bool b){
-    this->mAnnonce.setEstOccupe(b);
+void Annonce::setVendu(){
+    bool ok;
+    QString desc = QString("");
+    if (mAnnonce.mTypeAnnonce.compare("Location") == 0){
+        desc = QString("Nom du locataire :");
+    }else if (mAnnonce.mTypeAnnonce.compare("Vente") == 0){
+        desc = QString("Nom du vendeur :");
+    }
+    QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+                                      desc, QLineEdit::Normal,
+                                      QDir::home().dirName(), &ok);
+
+
+    this->mAnnonce.mNomAcheteur = text;
+    this->mAnnonce.setEstOccupe(true);
+    this->accept();
 }
 
 void Annonce::setW(IHMo *w) {

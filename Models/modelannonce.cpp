@@ -76,6 +76,7 @@ QDomElement ModelAnnonce::annonceToXml(QDomDocument &d){
     a.setAttribute("mLastUpdate", QString(this->mLastUpdate.toString("dd/MM/yyyy")));
     a.setAttribute("mFin", QString(this->mFin.toString("dd/MM/yyyy")));
     a.setAttribute("mEstOccupe", QString::number(this->mEstOccupe));
+    a.setAttribute("mNomAcheteur", QString(this->mNomAcheteur));
 
     return a;
 }
@@ -98,6 +99,7 @@ void ModelAnnonce::annonceFromXml(QDomElement &d){
     this->mLastUpdate = QDate::fromString(d.attribute("mLastUpdate",""), "dd/MM/yyyy");
     this->mFin = QDate::fromString(d.attribute("mFin",""), "dd/MM/yyyy");
     this->mEstOccupe = d.attribute("mEstOccupe","").toInt() != 0;
+    this->mNomAcheteur = d.attribute("mNomAcheteur","");
     this->toString();
 }
 
@@ -132,9 +134,11 @@ void ModelAnnonce::setEstOccupe(bool b){
     if(b){
         mEstOccupe = b;
         mFin = QDate::currentDate();
+        mLastUpdate = mFin = QDate::currentDate();
     } else {
         mEstOccupe = b;
         mFin = QDate();
+        mFin = QDate::currentDate();
     }
 }
 

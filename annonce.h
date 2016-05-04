@@ -6,6 +6,7 @@
 #include <QDialog>
 #include <QString>
 #include <QStringList>
+#include <QInputDialog>
 #include <QMessageBox>
 #include <string>
 #include <vector>
@@ -45,7 +46,7 @@ private:
 private slots:
     void accept();
     void openImageFile();
-    void setEstOccupe(bool b);
+    void setVendu();
 };
 
 #endif // ANNONCE_H
