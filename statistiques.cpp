@@ -14,11 +14,6 @@ void Statistiques::setAnnonces(QList<ModelAnnonce> *annonces){
     QList<ModelAnnonce> loChateau;
     QList<ModelAnnonce> loVilla;
 
-    /*loAppartement = new QList<ModelAnnonce>;
-    loMaison = new QList<ModelAnnonce>;
-    loChateau = new QList<ModelAnnonce>;
-    loVilla = new QList<ModelAnnonce>;*/
-
     for (int i = 0; i < annonces->count(); i++){
         ModelAnnonce a = annonces->at(i);
         if (a.mTypeBien.compare(QString("Maison")) == 0){

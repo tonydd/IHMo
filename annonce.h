@@ -27,7 +27,7 @@ public:
             QString typeBien, QString typeAnnonce, double surfaceHabitable,
             double superficieTerrain, int nbPieces, QString description,
             QString adr1, QString adr2, QString adr3, double prix, QString photo, QDate crea);
-    void setAnnonce(ModelAnnonce *a);
+    void setAnnonce(ModelAnnonce a);
     int editing_index;
     ModelAnnonce mAnnonce;
     ~Annonce();

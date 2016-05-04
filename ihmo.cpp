@@ -52,9 +52,8 @@ IHMo::IHMo(QWidget *parent) :
     ui->tw_annonces->setHorizontalHeaderLabels(headers);
     //ui->tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 
-    QMessageBox q;
-    q.setText(Datamanager::getInstance()->loadFromXML());
-    q.exec();
+
+    Datamanager::getInstance()->loadFromXML();
 
 
     // -- Bind "Delete" sur tableWidget
@@ -243,33 +242,35 @@ void IHMo::showAPropos() {
     QMessageBox::information(this,"A propos","Version 1.0\nAnthony Den Drijver & Thomas Stocker\nIHM L3IS6P 2016");
 }
 
+void IHMo::setEditAnnonce(ModelAnnonce a, bool ed){
+    if (ed){
+        Datamanager::getInstance()->annonces->replace(editing_index, a);
+    } else {
+        Datamanager::getInstance()->registerAnnonce(a);
+    }
+    this->refreshTablewidget();
+}
+
 void IHMo::showAide() {
     QDesktopServices::openUrl(QUrl("../Aide.pdf"));
 }
 
 void IHMo::showAnnonce(QModelIndex index) {
-    int row = index.row();
+    editing_index = index.row();
 
-    ModelAnnonce a = Datamanager::getInstance()->getAnnonce(row);
+    ModelAnnonce a = Datamanager::getInstance()->getAnnonce(editing_index);
 
 
     // -- Création, remplissage, affichage du form d'édition
     Annonce *disp = new Annonce;
-    disp->setAnnonce(&a);
-    /*disp->setValues(row,
-                a.mTypeBien, a.mTypeAnnonce, a.mSurfaceHabitable,
-                a.mSuperficieTerrain, a.mNombrePiece, a.mDescription,
-                a.mAdresse1, a.mAdresse2, a.mAdresse3,
-                a.mPrix, a.mPhotoContractuelle, a.mCreation);*/
+    disp->setAnnonce(a);
     disp->setW(this);
     disp->show();
 }
 
 void IHMo::saveAnnonces(){
     if (Datamanager::getInstance()->saveToXML()){
-        QMessageBox q;
-        q.setText("Enregistrement effectué avec succès !");
-        q.exec();
+
     }else {
         QMessageBox::critical(this, "Erreur", "Erreur lors de l'enregistrement");
     }

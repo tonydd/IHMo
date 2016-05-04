@@ -5,9 +5,6 @@ Datamanager *Datamanager::instance = new Datamanager;
 Datamanager::Datamanager()
 {
     this->annonces = new QList<ModelAnnonce>;
-
-    // -- C'est ici qu'on récup le XML
-    //this->loadFromXML();
 }
 
 QList<ModelAnnonce> *Datamanager::getAnnonces() {
@@ -24,9 +21,13 @@ void Datamanager::registerAnnonce(ModelAnnonce a) {
 
 int Datamanager::getNewIdAnnonce(){
     int ret = 1;
-    if (this->annonces->length() > 0){
-        this->annonces->length() + 1;
+
+    for(int i = 0; i < annonces->count(); i++){
+        if (annonces->at(i).mIdAnnonce > ret){
+            ret = annonces->at(i).mIdAnnonce;
+        }
     }
+
     return ret;
 }
 

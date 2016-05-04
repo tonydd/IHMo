@@ -24,9 +24,11 @@ public:
     static IHMo* getInstance();
 
     void refreshTablewidget();
+    void setEditAnnonce(ModelAnnonce a, bool ed);
 
 private:
     Ui::IHMo *ui;
+    int editing_index;
 
 protected:
     void closeEvent(QCloseEvent *event);

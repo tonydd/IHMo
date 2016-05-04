@@ -24,7 +24,6 @@ Annonce::Annonce(QWidget *parent) :
     editing_index = -1;
 
     ui->lbl_date->setVisible(false);
-
 }
 
 // Récupérer les différents types de bien du XMl et initialiser la comboBox
@@ -52,20 +51,19 @@ void Annonce::openImageFile() {
 }
 
 void Annonce::accept() {
-    // -- Récupération des données
-    double prix = ui->txt_prix->text().toDouble();
-    double surface_habitable = ui->txt_surface->text().toDouble();
-    double surface_terrain = ui->txt_surface_terrain->text().toDouble();
+    this->mAnnonce.mPrix = ui->txt_prix->text().toDouble();
+    this->mAnnonce.mSurfaceHabitable = ui->txt_surface->text().toDouble();
+    this->mAnnonce.mSuperficieTerrain = ui->txt_surface_terrain->text().toDouble();
 
 
-    QString type_bien = ui->combo_type->currentText();
-    int nb_pieces = ui->combo_pieces->currentText().toInt();
+    this->mAnnonce.mTypeBien = ui->combo_type->currentText();
+    mAnnonce.mNombrePiece = ui->combo_pieces->currentText().toInt();
 
-    QString addr1 = ui->txt_addr1->text();
-    QString addr2 = ui->txt_addr2->text();
-    QString addr3 = ui->txt_addr3->text();
+    mAnnonce.mAdresse1 = ui->txt_addr1->text();
+    mAnnonce.mAdresse2 = ui->txt_addr2->text();
+    mAnnonce.mAdresse3 = ui->txt_addr3->text();
 
-    QString desc = ui->txt_desc->toPlainText();
+    mAnnonce.mDescription = ui->txt_desc->toPlainText();
 
     QString type_annonce;
 
@@ -76,21 +74,18 @@ void Annonce::accept() {
         type_annonce = ui->rdb_vente->text();
     }
 
-    ModelAnnonce a = ModelAnnonce(Datamanager::getInstance()->getNewIdAnnonce(), type_bien, type_annonce, surface_habitable, surface_terrain, nb_pieces, addr1, addr2, addr3, desc, prix, imageFile);
+    mAnnonce.mTypeAnnonce = type_annonce;
+    mAnnonce.mEstOccupe = ui->chkOccupe->isChecked();
+    mAnnonce.mPhotoContractuelle = imageFile;
 
-    a.mEstOccupe = ui->chkOccupe->isChecked();
-
-    a.setLastUpdate(QDate::currentDate());
-    if (edition) {
-        Datamanager::getInstance()->updateAnnonce(a, this->editing_index);
-    }
-    else {
-        a.setCreationDate(QDate::currentDate());
-        Datamanager::getInstance()->registerAnnonce(a);
+    mAnnonce.setLastUpdate(QDate::currentDate());
+    if (!edition){
+        mAnnonce.mIdAnnonce = Datamanager::getInstance()->getNewIdAnnonce();
+        mAnnonce.setCreationDate(QDate::currentDate());
     }
 
 
-    w->refreshTablewidget();
+    w->setEditAnnonce(mAnnonce, edition);
     this->close();
 }
 
@@ -127,39 +122,38 @@ void Annonce::setValues(int index, QString typeBien, QString typeAnnonce, double
 
 }
 
-void Annonce::setAnnonce(ModelAnnonce *a){
-    this->mAnnonce = *a;
-    ui->combo_type->setCurrentIndex( ui->combo_type->findText(a->mTypeBien) );
-    ui->combo_pieces->setCurrentIndex( a->mNombrePiece - 1);
+void Annonce::setAnnonce(ModelAnnonce a){
+    this->mAnnonce = a;
+    ui->combo_type->setCurrentIndex( ui->combo_type->findText(a.mTypeBien) );
+    ui->combo_pieces->setCurrentIndex( a.mNombrePiece - 1);
 
-    ui->txt_addr1->setText(a->mAdresse1);
-    ui->txt_addr2->setText(a->mAdresse2);
-    ui->txt_addr3->setText(a->mAdresse3);
+    ui->txt_addr1->setText(a.mAdresse1);
+    ui->txt_addr2->setText(a.mAdresse2);
+    ui->txt_addr3->setText(a.mAdresse3);
 
-    ui->txt_desc->append(a->mDescription);
+    ui->txt_desc->append(a.mDescription);
 
-    ui->txt_prix->setText( QString::number(a->mPrix) );
-    ui->txt_surface->setText( QString::number(a->mSurfaceHabitable) );
-    ui->txt_surface_terrain->setText( QString::number(a->mSuperficieTerrain) );
+    ui->txt_prix->setText( QString::number(a.mPrix) );
+    ui->txt_surface->setText( QString::number(a.mSurfaceHabitable) );
+    ui->txt_surface_terrain->setText( QString::number(a.mSuperficieTerrain) );
 
-    QImage image(a->mPhotoContractuelle);
+    QImage image(a.mPhotoContractuelle);
     ui->lbl_img->setPixmap(QPixmap::fromImage(image));
-    imageFile = a->mPhotoContractuelle;
+    imageFile = a.mPhotoContractuelle;
 
-    if (a->mTypeAnnonce == "Vente") {
+    if (a.mTypeAnnonce == "Vente") {
         ui->rdb_vente->setChecked(true);
     }
-    else if (a->mTypeAnnonce == "Location") {
+    else if (a.mTypeAnnonce == "Location") {
         ui->rdb_location->setChecked(true);
     }
 
-    ui->lbl_date->setText("Mise en ligne le : " + a->mCreation.toString("dd/MM/yyyy"));
+    ui->lbl_date->setText("Mise en ligne le : " + a.mCreation.toString("dd/MM/yyyy"));
     ui->lbl_date->setVisible(true);
 
     edition = true; // On est en mode edition
-    this->editing_index = a->mIdAnnonce - 1;
 
-    ui->chkOccupe->setChecked(a->mEstOccupe);
+    ui->chkOccupe->setChecked(a.mEstOccupe);
 }
 
 void Annonce::setEstOccupe(bool b){
