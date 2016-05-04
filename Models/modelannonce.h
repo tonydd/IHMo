@@ -60,9 +60,12 @@ public:
     QDate mLastUpdate;
     QDate mFin;
 
+    bool mEstOccupe;
+
     // -- Méthodes
     void setCreationDate(QDate d);
     void setLastUpdate(QDate d);
+    void setEstOccupe(bool b);
 
     ~ModelAnnonce();
 protected:

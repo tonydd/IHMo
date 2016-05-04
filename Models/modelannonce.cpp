@@ -38,6 +38,7 @@ ModelAnnonce::ModelAnnonce(int piIdAnnonce,
     mDescription = pstrDescription;
     mPrix = pdblPrix;
     mPhotoContractuelle = ptbPhotoContractuelle;
+    mEstOccupe = false;
 }
 
 void ModelAnnonce::toString() {
@@ -74,6 +75,7 @@ QDomElement ModelAnnonce::annonceToXml(QDomDocument &d){
     a.setAttribute("mCreation", QString(this->mCreation.toString("dd/MM/yyyy")));
     a.setAttribute("mLastUpdate", QString(this->mLastUpdate.toString("dd/MM/yyyy")));
     a.setAttribute("mFin", QString(this->mFin.toString("dd/MM/yyyy")));
+    a.setAttribute("mEstOccupe", QString::number(this->mEstOccupe));
 
     return a;
 }
@@ -95,6 +97,7 @@ void ModelAnnonce::annonceFromXml(QDomElement &d){
     this->mCreation = QDate::fromString(d.attribute("mCreation",""), "dd/MM/yyyy");
     this->mLastUpdate = QDate::fromString(d.attribute("mLastUpdate",""), "dd/MM/yyyy");
     this->mFin = QDate::fromString(d.attribute("mFin",""), "dd/MM/yyyy");
+    this->mEstOccupe = d.attribute("mEstOccupe","").toInt() != 0;
     this->toString();
 }
 
@@ -122,7 +125,17 @@ void ModelAnnonce::setCreationDate(QDate d) {
 }
 
 void ModelAnnonce::setLastUpdate(QDate d) {
+    mLastUpdate = d;
+}
 
+void ModelAnnonce::setEstOccupe(bool b){
+    if(b){
+        mEstOccupe = b;
+        mFin = QDate::currentDate();
+    } else {
+        mEstOccupe = b;
+        mFin = QDate();
+    }
 }
 
 ModelAnnonce::~ModelAnnonce() {

@@ -25,7 +25,7 @@ void Datamanager::registerAnnonce(ModelAnnonce a) {
 int Datamanager::getNewIdAnnonce(){
     int ret = 1;
     if (this->annonces->length() > 0){
-        this->annonces->last().mIdAnnonce + 1;
+        this->annonces->length() + 1;
     }
     return ret;
 }

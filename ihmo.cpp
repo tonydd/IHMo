@@ -1,6 +1,7 @@
 #include "ihmo.h"
 #include "ui_ihmo.h"
 #include "annonce.h"
+#include "statistiques.h"
 #include <Qt>
 #include <QString>
 #include <QStringList>
@@ -49,7 +50,7 @@ IHMo::IHMo(QWidget *parent) :
 
     ui->tw_annonces->setColumnCount( nb_col );
     ui->tw_annonces->setHorizontalHeaderLabels(headers);
-    ui->tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    //ui->tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 
     QMessageBox q;
     q.setText(Datamanager::getInstance()->loadFromXML());
@@ -254,11 +255,12 @@ void IHMo::showAnnonce(QModelIndex index) {
 
     // -- Création, remplissage, affichage du form d'édition
     Annonce *disp = new Annonce;
-    disp->setValues(row,
+    disp->setAnnonce(&a);
+    /*disp->setValues(row,
                 a.mTypeBien, a.mTypeAnnonce, a.mSurfaceHabitable,
                 a.mSuperficieTerrain, a.mNombrePiece, a.mDescription,
                 a.mAdresse1, a.mAdresse2, a.mAdresse3,
-                a.mPrix, a.mPhotoContractuelle, a.mCreation);
+                a.mPrix, a.mPhotoContractuelle, a.mCreation);*/
     disp->setW(this);
     disp->show();
 }
@@ -291,6 +293,13 @@ void IHMo::deleteRow() {
 
 
     }
+}
+
+void IHMo::showStatistiques(){
+    Statistiques *s = new Statistiques;
+    s->setAnnonces(Datamanager::getInstance()->annonces);
+
+    s->show();
 }
 
 void IHMo::closeEvent (QCloseEvent *event)

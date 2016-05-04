@@ -334,6 +334,13 @@
        <number>0</number>
       </property>
       <item>
+       <widget class="QCheckBox" name="chkOccupe">
+        <property name="text">
+         <string>Est occupé</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -422,8 +429,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>383</x>
-     <y>528</y>
+     <x>570</x>
+     <y>540</y>
     </hint>
     <hint type="destinationlabel">
      <x>401</x>
@@ -447,8 +454,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>chkOccupe</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Annonce</receiver>
+   <slot>setEstOccupe(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>92</x>
+     <y>526</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>178</x>
+     <y>564</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openImageFile()</slot>
+  <slot>setEstOccupe(bool)</slot>
  </slots>
 </ui>

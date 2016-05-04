@@ -78,9 +78,11 @@ void Annonce::accept() {
 
     ModelAnnonce a = ModelAnnonce(Datamanager::getInstance()->getNewIdAnnonce(), type_bien, type_annonce, surface_habitable, surface_terrain, nb_pieces, addr1, addr2, addr3, desc, prix, imageFile);
 
+    a.mEstOccupe = ui->chkOccupe->isChecked();
+
     a.setLastUpdate(QDate::currentDate());
     if (edition) {
-        Datamanager::getInstance()->updateAnnonce(a, editing_index);
+        Datamanager::getInstance()->updateAnnonce(a, this->editing_index);
     }
     else {
         a.setCreationDate(QDate::currentDate());
@@ -123,6 +125,45 @@ void Annonce::setValues(int index, QString typeBien, QString typeAnnonce, double
     edition = true; // On est en mode edition
     editing_index = index;
 
+}
+
+void Annonce::setAnnonce(ModelAnnonce *a){
+    this->mAnnonce = *a;
+    ui->combo_type->setCurrentIndex( ui->combo_type->findText(a->mTypeBien) );
+    ui->combo_pieces->setCurrentIndex( a->mNombrePiece - 1);
+
+    ui->txt_addr1->setText(a->mAdresse1);
+    ui->txt_addr2->setText(a->mAdresse2);
+    ui->txt_addr3->setText(a->mAdresse3);
+
+    ui->txt_desc->append(a->mDescription);
+
+    ui->txt_prix->setText( QString::number(a->mPrix) );
+    ui->txt_surface->setText( QString::number(a->mSurfaceHabitable) );
+    ui->txt_surface_terrain->setText( QString::number(a->mSuperficieTerrain) );
+
+    QImage image(a->mPhotoContractuelle);
+    ui->lbl_img->setPixmap(QPixmap::fromImage(image));
+    imageFile = a->mPhotoContractuelle;
+
+    if (a->mTypeAnnonce == "Vente") {
+        ui->rdb_vente->setChecked(true);
+    }
+    else if (a->mTypeAnnonce == "Location") {
+        ui->rdb_location->setChecked(true);
+    }
+
+    ui->lbl_date->setText("Mise en ligne le : " + a->mCreation.toString("dd/MM/yyyy"));
+    ui->lbl_date->setVisible(true);
+
+    edition = true; // On est en mode edition
+    this->editing_index = a->mIdAnnonce - 1;
+
+    ui->chkOccupe->setChecked(a->mEstOccupe);
+}
+
+void Annonce::setEstOccupe(bool b){
+    this->mAnnonce.setEstOccupe(b);
 }
 
 void Annonce::setW(IHMo *w) {

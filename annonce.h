@@ -2,6 +2,7 @@
 #define ANNONCE_H
 
 #include "ihmo.h"
+#include "Models/modelannonce.h"
 #include <QDialog>
 #include <QString>
 #include <QStringList>
@@ -26,13 +27,16 @@ public:
             QString typeBien, QString typeAnnonce, double surfaceHabitable,
             double superficieTerrain, int nbPieces, QString description,
             QString adr1, QString adr2, QString adr3, double prix, QString photo, QDate crea);
+    void setAnnonce(ModelAnnonce *a);
+    int editing_index;
+    ModelAnnonce mAnnonce;
     ~Annonce();
 
 private:
     QString imageFile;
     Ui::Annonce *ui;
     bool edition;
-    int editing_index;
+
     IHMo *w;
 
     void loadTypes();
@@ -41,6 +45,7 @@ private:
 private slots:
     void accept();
     void openImageFile();
+    void setEstOccupe(bool b);
 };
 
 #endif // ANNONCE_H

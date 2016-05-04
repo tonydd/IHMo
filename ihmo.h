@@ -39,6 +39,7 @@ private slots:
     void showAPropos();
     void showAide();
     void saveAnnonces();
+    void showStatistiques();
 
     void deleteRow();
 };
