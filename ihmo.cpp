@@ -44,7 +44,7 @@ IHMo::IHMo(QWidget *parent) :
     ui->tw_annonces->setSelectionMode(QAbstractItemView::SingleSelection);
 
     QStringList headers;
-    headers << "Type de bien" << "Type d'annonce" << "Surface habitable" << "Superficie terrain" << "Nb pieces" << "Description" <<"Addresse" << "Prix" << "Photo";
+    headers << "Mise en ligne" << "Type de bien" << "Type d'annonce" << "Surface habitable" << "Superficie terrain" << "Nb pieces" << "Description" <<"Addresse" << "Prix" << "Photo";
 
     int nb_col = headers.count();
 
@@ -89,6 +89,9 @@ void IHMo::refreshTablewidget() {
         ModelAnnonce annonce = annonces->at(line);
 
         col_index = 0;
+        tw_annonces->setItem(line, col_index, new QTableWidgetItem(annonce.mCreation.toString("dd/MM/yyyy")));
+        col_index++;
+
         tw_annonces->setItem(line, col_index, new QTableWidgetItem(annonce.mTypeBien));
         col_index++;
 
