@@ -66,7 +66,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>400</height>
+          <height>300</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -567,49 +567,23 @@ QLabel, QCheckBox {
              </property>
             </spacer>
            </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: #5cb85c;</string>
+             </property>
+             <property name="text">
+              <string>Ajouter une annonce</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>
        </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <property name="spacing">
-         <number>60</number>
-        </property>
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
-        <property name="topMargin">
-         <number>10</number>
-        </property>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: #5cb85c;</string>
-          </property>
-          <property name="text">
-           <string>Ajouter une annonce</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
      </layout>
     </item>
