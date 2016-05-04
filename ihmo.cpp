@@ -50,7 +50,7 @@ IHMo::IHMo(QWidget *parent) :
 
     ui->tw_annonces->setColumnCount( nb_col );
     ui->tw_annonces->setHorizontalHeaderLabels(headers);
-    //ui->tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    ui->tw_annonces->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 
 
     Datamanager::getInstance()->loadFromXML();
@@ -119,6 +119,12 @@ void IHMo::refreshTablewidget() {
 
         tw_annonces->setItem(line, col_index, new QTableWidgetItem(QIcon(annonce.mPhotoContractuelle), QString("")));
         col_index++;
+
+        if (annonce.mEstOccupe) {
+            for (int i = 0; i < col_index; i++) {
+                tw_annonces->item(line, i)->setBackgroundColor(QColor("silver"));
+            }
+        }
     }
 
     tw_annonces->resizeRowsToContents();
