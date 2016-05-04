@@ -37,6 +37,7 @@ private slots:
     void addAnnonce();
     void searchAnnonce();
     void emptySearch();
+    void enableDateSearch(bool enable);
     void showAnnonce(QModelIndex index);
     void showAPropos();
     void showAide();

@@ -213,6 +213,13 @@ void IHMo::searchAnnonce() {
             }
         }
 
+        // ----- Date de mise en ligne
+        if (ui->ckb_search_enableDate->isChecked()) {
+            if (ann.mCreation < ui->date_search->date()) {
+                tw_annonces->setRowHidden(i, true);
+            }
+        }
+
         // ----- Gestion photo
         if (avecPhoto && ann.mPhotoContractuelle == "") {
             qDebug("Caché par photo");
@@ -239,6 +246,10 @@ void IHMo::emptySearch() {
     ui->txt_search_piecesMax->setText("");
 
     searchAnnonce();
+}
+
+void IHMo::enableDateSearch(bool enable) {
+    ui->date_search->setEnabled(enable);
 }
 
 void IHMo::showAPropos() {
